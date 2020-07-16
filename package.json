@@ -7,11 +7,12 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "tsc": "tsc"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && tsc && npm run lint && npm run test"
+      "pre-commit": "pretty-quick --staged && npm run tsc && npm run lint && npm run test"
     }
   },
   "dependencies": {
@@ -28,8 +29,9 @@
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "babel-jest": "^25.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "eslint": "^6.5.1",
-    "husky": "^3.0.5",
+    "husky": "^3.1.0",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^2.0.4",
