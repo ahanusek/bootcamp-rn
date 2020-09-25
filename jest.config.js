@@ -9,5 +9,8 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|react-navigation|static-container|redux-persist|lodash-es|recyclerlistview|@react-navigation/.*)',
   ],
-  setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
+  setupFiles: [
+    './node_modules/react-native-gesture-handler/jestSetup.js',
+    '<rootDir>/jest.setup.js',
+  ],
 };
