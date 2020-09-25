@@ -14,5 +14,6 @@
 - [ ] Configure Reanimated 2
 - [ ] Create Authentication flows
 - [ ] Create bottom tab navigation
+- [ ] Add nested navigation for Transaction details
 
 Sources: https://reactnative.dev/docs/flatlist.html
