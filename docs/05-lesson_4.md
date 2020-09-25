@@ -2,7 +2,7 @@
 
 ## App Navigation & React Navigation
 
-\_Keywords: React Navigation, Stack navigation, Drawer navigation, Tab navigation,
+\_Keywords: React Navigation, Stack navigation, Drawer navigation, Tab navigation, TurboModules
 
 #### Goal: Create bottom tabbar navigation and auth flow navigation
 
@@ -11,7 +11,8 @@
 ##### Tasks
 
 - [ ] Add react-navigation 5 with all required dependencies
-- [ ] Create Authentication flows 
+- [ ] Configure Reanimated 2
+- [ ] Create Authentication flows
 - [ ] Create bottom tab navigation
 
 Sources: https://reactnative.dev/docs/flatlist.html
