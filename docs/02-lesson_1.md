@@ -18,3 +18,4 @@ _Keywords: View, Text, Stylesheet, SafeAreaView, ScrollView, Platform, StatusBar
 - [ ] Create PlusButton component
 
 Caveats: ScrollView, SafeAreaView, flexbox orientation,
+Additional resources: https://github.com/Shopify/restyle
