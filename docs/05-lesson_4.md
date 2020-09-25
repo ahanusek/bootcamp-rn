@@ -15,5 +15,6 @@
 - [ ] Create Authentication flows
 - [ ] Create bottom tab navigation
 - [ ] Add nested navigation for Transaction details
+- [ ] Type checking with TypeScript
 
 Sources: https://reactnative.dev/docs/flatlist.html

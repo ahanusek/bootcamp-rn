@@ -84,4 +84,4 @@ export const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-};
+} as const;
