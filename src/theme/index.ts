@@ -77,3 +77,11 @@ export const subText = {
   lineHeight: 18,
   color: palette.grey,
 };
+
+export const styles = {
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+};
