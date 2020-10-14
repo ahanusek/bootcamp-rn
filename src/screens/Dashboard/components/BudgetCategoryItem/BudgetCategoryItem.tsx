@@ -1,13 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { BudgetCategory } from '@/screens/Dashboard/components/TransactionList/mockData';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { paragraph, subText, theme } from '@/theme';
 import { mapCategoryToStyle } from '@/screens/Dashboard/components/BudgetCategoryItem/mapCategoryToStyle';
 
-type OwnProps = {
-  onPress: () => void;
-};
+type OwnProps = {};
 
 export type BudgetCategoryItemProps = OwnProps & BudgetCategory;
 
@@ -15,11 +13,10 @@ const BudgetCategoryItem: FunctionComponent<BudgetCategoryItemProps> = ({
   category,
   transactions,
   totalAmount,
-  onPress,
 }) => {
   const categoryStyle = mapCategoryToStyle[category.toString()];
   return (
-    <TouchableOpacity style={styles.row} onPress={onPress}>
+    <View style={styles.row}>
       <View
         style={[
           styles.iconContainer,
@@ -40,7 +37,7 @@ const BudgetCategoryItem: FunctionComponent<BudgetCategoryItemProps> = ({
       <View>
         <Text style={paragraph}>${totalAmount.value}</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

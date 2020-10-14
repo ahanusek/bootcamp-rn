@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { transactions } from '@/screens/Dashboard/components/TransactionList/mockData';
 import { BudgetCategoryItem } from '@/screens/Dashboard/components';
+import { SharedElement } from 'react-navigation-shared-element';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -14,13 +15,15 @@ const TransactionList: FunctionComponent<TransactionListProps> = () => {
   return (
     <View>
       {transactions.map((transaction) => (
-        <BudgetCategoryItem
-          {...transaction}
+        <TouchableOpacity
           key={transaction.id}
           onPress={() =>
             navigation.navigate('TransactionDetails', { transaction })
-          }
-        />
+          }>
+          <SharedElement id={transaction.id}>
+            <BudgetCategoryItem {...transaction} />
+          </SharedElement>
+        </TouchableOpacity>
       ))}
     </View>
   );

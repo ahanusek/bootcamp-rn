@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { enableScreens } from 'react-native-screens';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MainNavigator from '@/routes/Main/MainNavigator';
@@ -13,6 +14,8 @@ const MyTheme = {
     background: palette.white,
   },
 };
+
+enableScreens();
 
 const App = () => {
   const [auth, updateAuthState] = useState<{
