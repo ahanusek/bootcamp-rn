@@ -78,7 +78,7 @@ export const subText = {
   color: palette.grey,
 };
 
-export const styles = {
+export const appStyles = {
   centered: {
     flex: 1,
     justifyContent: 'center',

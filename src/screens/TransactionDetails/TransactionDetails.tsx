@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text } from 'react-native';
-import { styles } from '@/theme';
+import { appStyles } from '@/theme';
 import { BudgetNavProps } from '@/routes/BudgetNavigator/BudgetRoutesTypes';
 
 type OwnProps = {};
@@ -13,7 +13,7 @@ const TransactionDetails: FunctionComponent<TransactionDetailsProps> = ({
 }) => {
   const { transaction } = route.params;
   return (
-    <View style={styles.centered}>
+    <View style={appStyles.centered}>
       <Text>
         {transaction.category} {transaction.transactions}
       </Text>

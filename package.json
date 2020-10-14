@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "ENVFILE=.env.dev react-native run-ios --simulator 'iPhone 11 Pro Max' --scheme 'BudgetApp' --configuration Debug",
-    "ios-prod": "react-native run-ios --simulator 'iPhone 11 Pro Max' --scheme 'BudgetAppProd' --configuration DebugProd",
+    "ios": "ENVFILE=.env.dev react-native run-ios --simulator 'iPhone 11' --scheme 'BudgetApp' --configuration Debug",
+    "ios-prod": "react-native run-ios --simulator 'iPhone 11' --scheme 'BudgetAppProd' --configuration DebugProd",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
