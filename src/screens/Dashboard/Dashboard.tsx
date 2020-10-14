@@ -1,13 +1,14 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   View,
-  Alert,
   ScrollView,
 } from 'react-native';
+import { Portal } from 'react-native-portalize';
+import { Modalize } from 'react-native-modalize';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
 import { subText, subtitle, theme } from '@/theme';
@@ -18,6 +19,7 @@ type OwnProps = {};
 export type DashboardProps = OwnProps;
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
+  const modalRef = useRef<Modalize>(null);
   return (
     <>
       <SafeAreaView />
@@ -29,7 +31,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         <Spacer size="large" />
         <Card>
           <View style={styles.actionCard}>
-            <PlusButton onPress={() => Alert.alert('Alert test')}>
+            <PlusButton onPress={() => modalRef.current?.open()}>
               <Icon name="plus" size={26} color={theme.colors.secondary} />
             </PlusButton>
             <View style={styles.textContainer}>
@@ -47,6 +49,9 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         </Card>
         <Spacer size="xlarge" />
       </ScrollView>
+      <Portal>
+        <Modalize ref={modalRef} snapPoint={300} />
+      </Portal>
     </>
   );
 };

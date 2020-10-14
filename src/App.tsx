@@ -3,6 +3,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from '@/screens/SplashScreen/SplashScreen';
 import MainNavigator from '@/routes/Main/MainNavigator';
+import { Host } from 'react-native-portalize';
 import { palette } from '@/theme';
 
 const MyTheme = {
@@ -30,9 +31,11 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={MyTheme}>
-        <MainNavigator />
-      </NavigationContainer>
+      <Host>
+        <NavigationContainer theme={MyTheme}>
+          <MainNavigator />
+        </NavigationContainer>
+      </Host>
     </SafeAreaProvider>
   );
 };
