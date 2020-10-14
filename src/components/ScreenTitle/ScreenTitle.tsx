@@ -1,18 +1,26 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 import { subtitle, theme } from '@/theme';
 
 type OwnProps = {
   title: string;
+  animatedValue?: Animated.Value;
 };
 
 export type ScreenTitleProps = OwnProps;
 
-const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({ title }) => {
+const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({
+  title,
+  animatedValue,
+}) => {
+  const widthInterpolation = animatedValue?.interpolate({
+    inputRange: [0, 700],
+    outputRange: [30, 150],
+  });
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.divider} />
+      <Animated.View style={[styles.divider, { width: widthInterpolation }]} />
     </View>
   );
 };
