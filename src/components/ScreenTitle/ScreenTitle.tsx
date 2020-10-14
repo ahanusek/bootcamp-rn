@@ -14,13 +14,18 @@ const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({
   animatedValue,
 }) => {
   const widthInterpolation = animatedValue?.interpolate({
-    inputRange: [0, 700],
+    inputRange: [30, 700],
     outputRange: [30, 150],
   });
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Animated.View style={[styles.divider, { width: widthInterpolation }]} />
+      <Animated.View
+        style={[
+          styles.divider,
+          { width: animatedValue ? widthInterpolation : 30 },
+        ]}
+      />
     </View>
   );
 };
