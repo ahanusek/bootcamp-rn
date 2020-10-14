@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text, ActivityIndicator } from 'react-native';
 import { AuthNavProps } from '@/routes/Auth/AuthRoutesTypes';
+import { styles } from '@/theme';
+import { Spacer } from '@/components';
 
 type OwnProps = {};
 
@@ -8,9 +10,11 @@ export type LoginProps = AuthNavProps<'Login'> & OwnProps;
 
 const Login: FunctionComponent<LoginProps> = () => {
   return (
-    <View>
+    <SafeAreaView style={styles.centered}>
       <Text>Login</Text>
-    </View>
+      <Spacer size="medium" />
+      <ActivityIndicator size="large" />
+    </SafeAreaView>
   );
 };
 
