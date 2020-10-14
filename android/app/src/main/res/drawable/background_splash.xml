@@ -3,5 +3,8 @@
 
     <item
             android:drawable="@color/screen_bg"/>
+    <item
+            android:drawable="@mipmap/tsh"
+            android:gravity="center" />
 
 </layer-list>
