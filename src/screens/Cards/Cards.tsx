@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: '#FF0000',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -53,6 +55,16 @@ const Cards: FunctionComponent<CardsProps> = () => {
     });
   };
 
+  const bgInterpolation = transformAnimation.current.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['rgb(255, 99, 71)', 'rgb(99, 71, 255)'],
+  });
+
+  const colorInterpolation = transformAnimation.current.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['rgb(0, 0, 0)', 'rgb(255, 255, 255)'],
+  });
+
   const animatedStyles = {
     opacity: animation.current,
   };
@@ -73,7 +85,17 @@ const Cards: FunctionComponent<CardsProps> = () => {
         </TouchableWithoutFeedback>
         <Spacer size="xlarge" />
         <TouchableWithoutFeedback onPress={startTransformAnimation}>
-          <Animated.View style={[styles.box, transformAnimatedStyles]} />
+          <Animated.View
+            style={[
+              styles.box,
+              transformAnimatedStyles,
+              { backgroundColor: bgInterpolation },
+            ]}>
+            <Animated.Text
+              style={{ textAlign: 'center', color: colorInterpolation }}>
+              Tekst
+            </Animated.Text>
+          </Animated.View>
         </TouchableWithoutFeedback>
       </View>
     </SafeAreaView>
