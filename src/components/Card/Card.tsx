@@ -1,24 +1,31 @@
-import React, { FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { theme } from '@/theme';
 
 type OwnProps = {
   type?: 'primary' | 'secondary';
+  style?: ViewStyle;
 };
 
 export type CardProps = OwnProps;
 
-const Card: FunctionComponent<CardProps> = ({ children, type = 'primary' }) => {
-  return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: mapTypeToBackgroundColor[type] },
-      ]}>
-      {children}
-    </View>
-  );
-};
+class Card extends React.Component<CardProps> {
+  static defaultProps = { type: 'primary', style: {} };
+
+  render() {
+    const { children, type = 'primary', style } = this.props;
+    return (
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: mapTypeToBackgroundColor[type] },
+          style,
+        ]}>
+        {children}
+      </View>
+    );
+  }
+}
 
 const mapTypeToBackgroundColor = {
   primary: theme.colors.secondary,

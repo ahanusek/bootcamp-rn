@@ -6,6 +6,7 @@ import {
   Text,
   View,
   ScrollView,
+  Animated,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Portal } from 'react-native-portalize';
@@ -27,8 +28,11 @@ export type BudgetModel = {
   paid: boolean;
 };
 
+const AnimatedCard = Animated.createAnimatedComponent(Card);
+
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>(null);
+  const animation = useRef(new Animated.Value(0));
   const [budget, setBudgetValue] = useState<BudgetModel>({
     total: '0',
     amount: '0',
@@ -51,19 +55,47 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     await setBudget();
     modalRef.current?.close();
   };
+
+  const cardInterpolation = animation.current.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -100],
+    extrapolate: 'clamp',
+  });
+
+  const headerInterpolation = animation.current.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -100],
+    extrapolate: 'clamp',
+  });
+
   return (
     <>
       <SafeAreaView />
       <StatusBar />
-      <ScrollView>
-        <ScreenTitle title="Budget" />
+      <ScreenTitle title="Budget" animatedValue={animation.current} />
+      <ScrollView
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: animation.current,
+                },
+              },
+            },
+          ],
+          { useNativeDriver: false },
+        )}>
         <Spacer />
         <Header
           mainText={`$ ${budget?.total || 0}`}
           subText="September expenses"
+          style={{ transform: [{ translateY: cardInterpolation }] }}
         />
         <Spacer size="large" />
-        <Card>
+        <AnimatedCard
+          style={{ transform: [{ translateY: headerInterpolation }] }}>
           <View style={styles.actionCard}>
             <PlusButton onPress={() => modalRef.current?.open()}>
               <Icon name="plus" size={26} color={theme.colors.secondary} />
@@ -76,7 +108,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
               </Text>
             </View>
           </View>
-        </Card>
+        </AnimatedCard>
         <Spacer size="xlarge" />
         <Card type="secondary">
           <TransactionList />

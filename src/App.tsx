@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { enableScreens } from 'react-native-screens';
 import MainNavigator from '@/routes/Main/MainNavigator';
 import { Host } from 'react-native-portalize';
 import { palette } from '@/theme';
 import AuthNavigator from '@/routes/Auth/AuthNavigator';
+
+enableScreens();
 
 const MyTheme = {
   ...DefaultTheme,
