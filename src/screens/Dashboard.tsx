@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
-// import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Entypo';
 import { appStyles, theme } from '@/theme';
 
 type OwnProps = {};
@@ -28,8 +28,9 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         <Spacer size="large" />
         <Card>
           <View style={styles.actionCard}>
-            <PlusButton onPress={() => Alert.alert('Alert test')}>
-              {/*<Icon name="plus" size={26} color={theme.colors.secondary} />*/}
+            <PlusButton
+              onPress={() => Alert.alert('Alert test', 'Test message')}>
+              <Icon name="plus" size={26} color={theme.colors.secondary} />
             </PlusButton>
             <View style={styles.textContainer}>
               <Text style={[appStyles.subtitle, styles.text]}>
