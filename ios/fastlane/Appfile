@@ -1,0 +1,10 @@
+app_identifier("io.tsh.dev.BudgetApp") # The bundle identifier of your app
+apple_id("andrzej.hanusek@tsh.io") # Your Apple email address
+
+itc_team_id("109113805") # App Store Connect Team ID
+team_id("8S95LUGZZP") # Developer Portal Team ID
+itc_team_id("109113805") # App Store Connect Team ID
+team_id("8S95LUGZZP") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

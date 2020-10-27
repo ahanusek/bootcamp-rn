@@ -23,7 +23,7 @@ const BudgetNavigator: FunctionComponent<BudgetNavigatorProps> = () => {
         component={TransactionDetails}
         sharedElementsConfig={(route) => {
           const { transaction } = route.params;
-          return [{ id: transaction.id }];
+          return [{ id: `${transaction.id}.icon` }];
         }}
         options={() => ({
           gestureEnabled: false,

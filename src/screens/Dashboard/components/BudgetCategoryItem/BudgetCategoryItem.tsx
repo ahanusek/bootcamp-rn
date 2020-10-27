@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { BudgetCategory } from '@/screens/Dashboard/components/TransactionList/mockData';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { paragraph, subText, theme } from '@/theme';
-import { mapCategoryToStyle } from '@/screens/Dashboard/components/BudgetCategoryItem/mapCategoryToStyle';
+import { SharedElement } from 'react-navigation-shared-element';
+import BudgetCategoryIcon from '@/components/BudgetCategoryIcon/BudgetCategoryIcon';
 
 type OwnProps = {};
 
@@ -13,21 +13,13 @@ const BudgetCategoryItem: FunctionComponent<BudgetCategoryItemProps> = ({
   category,
   transactions,
   totalAmount,
+  id,
 }) => {
-  const categoryStyle = mapCategoryToStyle[category.toString()];
   return (
     <View style={styles.row}>
-      <View
-        style={[
-          styles.iconContainer,
-          { backgroundColor: categoryStyle?.color || theme.colors.secondary },
-        ]}>
-        <Icon
-          name={categoryStyle?.icon || 'cart'}
-          color={theme.colors.light}
-          size={20}
-        />
-      </View>
+      <SharedElement id={`${id}.icon`}>
+        <BudgetCategoryIcon category={category} />
+      </SharedElement>
       <View style={styles.title}>
         <Text style={paragraph}>
           {category.slice(0, 1).toUpperCase() + category.slice(1)}

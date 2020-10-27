@@ -7,6 +7,7 @@
     "ios": "ENVFILE=.env.dev react-native run-ios --simulator 'iPhone 11' --scheme 'BudgetApp' --configuration Debug",
     "ios-prod": "react-native run-ios --simulator 'iPhone 11' --scheme 'BudgetAppProd' --configuration DebugProd",
     "start": "react-native start",
+    "android-prod-build": "cd android && ./gradlew assembleRelease",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "tsc": "tsc"
