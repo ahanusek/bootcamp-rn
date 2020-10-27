@@ -6,11 +6,11 @@ import {
   Text,
   View,
   Alert,
-  ScrollView,
 } from 'react-native';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
 import { appStyles, theme } from '@/theme';
+import TransactionList from '@/screens/Dashboard/components/TransactionList';
 
 type OwnProps = {};
 
@@ -21,7 +21,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     <>
       <SafeAreaView />
       <StatusBar />
-      <ScrollView>
+      <View>
         <ScreenTitle title="Budget" />
         <Spacer />
         <Header mainText="$ 2500" subText="September expenses" />
@@ -44,11 +44,11 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
           </View>
         </Card>
         <Spacer size="xlarge" />
-        {/*<Card type="secondary">*/}
-        {/*<TransactionList />*/}
-        {/*</Card>*/}
+        <Card type="secondary">
+          <TransactionList />
+        </Card>
         <Spacer size="xlarge" />
-      </ScrollView>
+      </View>
     </>
   );
 };
