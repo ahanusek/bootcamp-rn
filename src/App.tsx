@@ -1,25 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import Dashboard from '@/screens/Dashboard/Dashboard';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to React Native</Text>
-    </View>
+    <NavigationContainer>
+      <Dashboard />
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: Colors.lighter,
-  },
-  title: {
-    fontSize: 20,
-  },
-});
 
 export default App;

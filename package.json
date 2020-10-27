@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android": "react-native run-android --variant devDebug --appIdSuffix dev",
+    "android-prod": "react-native run-android --variant prodDebug --appIdSuffix prod",
+    "ios": "react-native run-ios --scheme 'BudgetApp' --configuration Debug",
+    "ios-prod": "react-native run-ios --scheme 'BudgetAppProd' --configuration DebugProd",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -12,19 +14,27 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run tsc && npm run lint && npm run test"
+      "pre-commit": "pretty-quick --staged && npm run tsc && npm run lint"
     }
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/native": "^5.8.0",
     "react": "16.13.1",
-    "react-native": "0.63.1"
+    "react-native": "0.63.3",
+    "react-native-gesture-handler": "^1.8.0",
+    "react-native-reanimated": "^1.13.1",
+    "react-native-safe-area-context": "^3.1.8",
+    "react-native-screens": "^2.12.0",
+    "react-native-vector-icons": "^7.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^25.2.3",
-    "@types/react-native": "^0.62.0",
+    "@types/react-native": "^0.63.3",
+    "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
