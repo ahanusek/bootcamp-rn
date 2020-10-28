@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from 'react';
+import React, { FunctionComponent, useRef, useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -7,6 +7,8 @@ import {
   View,
   ScrollView,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
@@ -29,9 +31,28 @@ export type BudgetModel = {
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>(null);
+  const [budget, setBudgetValue] = useState<BudgetModel>({
+    total: '0',
+    comment: '',
+    category: null,
+    paid: false,
+  });
+  useEffect(() => {
+    (async () => {
+      await setBudget();
+    })();
+  }, []);
 
-  const onSubmit = (data: BudgetModel) => {
-    console.warn(data);
+  const setBudget = async () => {
+    const form = await AsyncStorage.getItem('form');
+    if (form) {
+      setBudgetValue(JSON.parse(form));
+    }
+  };
+
+  const onSubmit = async (formData: object) => {
+    await AsyncStorage.setItem('form', JSON.stringify(formData));
+    await setBudget();
     modalRef.current?.close();
   };
   return (
@@ -41,7 +62,10 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
       <ScrollView>
         <ScreenTitle title="Budget" />
         <Spacer />
-        <Header mainText="$ 0" subText="September expenses" />
+        <Header
+          mainText={`$ ${budget.total || 0}`}
+          subText="September expenses"
+        />
         <Spacer size="large" />
         <Card>
           <View style={styles.actionCard}>
@@ -65,7 +89,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
       </ScrollView>
       <Portal>
         <Modalize ref={modalRef} adjustToContentHeight>
-          <BudgetForm onSubmit={onSubmit} />
+          <BudgetForm onSubmit={onSubmit} model={budget} />
         </Modalize>
       </Portal>
     </>

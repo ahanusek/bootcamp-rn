@@ -19,6 +19,7 @@ import { BudgetModel } from '@/screens/Dashboard/Dashboard';
 
 type OwnProps = {
   onSubmit: (model: BudgetModel) => void;
+  model: BudgetModel;
 };
 
 const MyField = handleTextInput(withNextInputAutoFocusInput(TextInput));
@@ -26,13 +27,6 @@ const MyField = handleTextInput(withNextInputAutoFocusInput(TextInput));
 const Form = withNextInputAutoFocusForm(View, { submitAfterLastInput: false });
 
 export type BudgetFormProps = OwnProps;
-
-const model = {
-  total: '0',
-  comment: '',
-  category: null,
-  paid: false,
-};
 
 const styles = StyleSheet.create({
   input: {
@@ -54,7 +48,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const BudgetForm: FunctionComponent<BudgetFormProps> = ({ onSubmit }) => {
+const BudgetForm: FunctionComponent<BudgetFormProps> = ({
+  onSubmit,
+  model,
+}) => {
   const [padding, setPadding] = useState(0);
   return (
     <View style={{ padding: 20 }}>
