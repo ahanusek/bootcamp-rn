@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 import { subtitle, theme } from '@/theme';
 
 type OwnProps = {
   title: string;
   animatedValue?: Animated.Value;
+  listHeight?: number;
 };
 
 export type ScreenTitleProps = OwnProps;
@@ -12,28 +13,40 @@ export type ScreenTitleProps = OwnProps;
 const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({
   title,
   animatedValue,
+  listHeight,
 }) => {
   const widthInterpolation = animatedValue?.interpolate({
-    inputRange: [0, 700],
+    inputRange: [0, listHeight || 700],
     outputRange: [30, 150],
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'extend',
+  });
+
+  const fontSize = animatedValue?.interpolate({
+    inputRange: [0, 700],
+    outputRange: [20, 16],
+    extrapolate: 'clamp',
   });
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+    <Animated.View style={[styles.container]}>
+      <Animated.Text style={[styles.title, { fontSize }]}>
+        {title}
+      </Animated.Text>
       <Animated.View
         style={[styles.divider, { width: widthInterpolation || 30 }]}
       />
-    </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: theme.colors.lightBorder,
     borderBottomWidth: 3,
+    backgroundColor: 'transparent',
+    overflow: 'hidden',
   },
   title: {
     ...subtitle,

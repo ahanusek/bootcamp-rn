@@ -1,22 +1,34 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 import { theme } from '@/theme';
 
 type OwnProps = {
   type?: 'primary' | 'secondary';
+  animatedInterpolation?: Animated.AnimatedInterpolation;
 };
 
 export type CardProps = OwnProps;
 
-const Card: FunctionComponent<CardProps> = ({ children, type = 'primary' }) => {
+const Card: FunctionComponent<CardProps> = ({
+  children,
+  type = 'primary',
+  animatedInterpolation,
+}) => {
   return (
-    <View
+    <Animated.View
       style={[
         styles.container,
         { backgroundColor: mapTypeToBackgroundColor[type] },
+        {
+          transform: [
+            {
+              translateY: animatedInterpolation || 0,
+            },
+          ],
+        },
       ]}>
       {children}
-    </View>
+    </Animated.View>
   );
 };
 

@@ -1,20 +1,29 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Animated } from 'react-native';
 import { subText, theme, title } from '@/theme';
 
 type OwnProps = {
   mainText: string;
   subText?: string;
+  animatedInterpolation: Animated.AnimatedInterpolation;
 };
 
 export type HeaderProps = OwnProps;
 
-const Header: FunctionComponent<HeaderProps> = ({ mainText, subText }) => {
+const Header: FunctionComponent<HeaderProps> = ({
+  mainText,
+  subText,
+  animatedInterpolation,
+}) => {
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[
+        styles.container,
+        { transform: [{ translateY: animatedInterpolation || 0 }] },
+      ]}>
       <Text style={styles.mainText}>{mainText}</Text>
       <Text style={styles.subText}>{subText}</Text>
-    </View>
+    </Animated.View>
   );
 };
 

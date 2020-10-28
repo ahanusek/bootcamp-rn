@@ -6,6 +6,7 @@ import {
   Text,
   View,
   ScrollView,
+  Animated,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -31,6 +32,8 @@ export type BudgetModel = {
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>(null);
+  const animation = useRef(new Animated.Value(0));
+  const [listHeight, setListHeight] = useState(0);
   const [budget, setBudgetValue] = useState<BudgetModel>({
     total: '0',
     comment: '',
@@ -55,19 +58,48 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     await setBudget();
     modalRef.current?.close();
   };
+
+  const transformStyles = animation.current.interpolate({
+    inputRange: [0, 300],
+    outputRange: [0, -200],
+    extrapolate: 'clamp',
+  });
   return (
     <>
       <SafeAreaView />
       <StatusBar />
-      <ScrollView>
-        <ScreenTitle title="Budget" />
+      <ScreenTitle
+        title="Budget"
+        listHeight={listHeight}
+        animatedValue={animation.current}
+      />
+      <ScrollView
+        // bounces={false}
+        style={{ zIndex: 10 }}
+        scrollEventThrottle={16}
+        onLayout={(e) => {
+          const { height } = e.nativeEvent.layout;
+          if (!listHeight || listHeight !== height) {
+            setListHeight(height);
+          }
+        }}
+        onScroll={Animated.event([
+          {
+            nativeEvent: {
+              contentOffset: {
+                y: animation.current,
+              },
+            },
+          },
+        ])}>
         <Spacer />
         <Header
           mainText={`$ ${budget.total || 0}`}
           subText="September expenses"
+          animatedInterpolation={transformStyles}
         />
         <Spacer size="large" />
-        <Card>
+        <Card animatedInterpolation={transformStyles}>
           <View style={styles.actionCard}>
             <PlusButton onPress={() => modalRef.current?.open()}>
               <Icon name="plus" size={26} color={theme.colors.secondary} />
