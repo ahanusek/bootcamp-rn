@@ -5,7 +5,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to React Native</Text>
+      <Text style={styles.title}>Welcome to Bootcamp!</Text>
     </View>
   );
 };
