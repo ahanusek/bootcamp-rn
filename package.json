@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --variant devDebug --appIdSuffix dev",
+    "android-prod": "react-native run-android --variant prodDebug --appIdSuffix prod",
     "ios": "react-native run-ios --simulator 'iPhone 12 mini' --scheme 'BudgetApp' --configuration Debug",
     "ios-prod": "react-native run-ios --simulator 'iPhone 12 mini' --scheme 'BudgetAppProd' --configuration DebugProd",
     "start": "react-native start",
@@ -13,7 +14,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run tsc && npm run lint && npm run test"
+      "pre-commit": "pretty-quick --staged && npm run tsc && npm run lint"
     }
   },
   "dependencies": {
