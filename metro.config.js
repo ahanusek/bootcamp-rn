@@ -11,6 +11,7 @@ module.exports = {
       transform: {
         experimentalImportSupport: false,
         inlineRequires: false,
+        assetPlugins: [require.resolve('./metro-assets-plugin')],
       },
     }),
   },
