@@ -77,10 +77,17 @@ const subText = {
   color: palette.grey,
 };
 
+const centered = {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+} as const;
+
 export const appStyles = {
   baseText,
   title,
   subtitle,
   paragraph,
   subText,
+  centered,
 };
