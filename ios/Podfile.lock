@@ -236,6 +236,8 @@ PODS:
     - React-cxxreact (= 0.63.1)
     - React-jsi (= 0.63.1)
   - React-jsinspector (0.63.1)
+  - react-native-safe-area-context (3.1.8):
+    - React-Core
   - React-RCTActionSheet (0.63.1):
     - React-Core/RCTActionSheetHeaders (= 0.63.1)
   - React-RCTAnimation (0.63.1):
@@ -296,6 +298,14 @@ PODS:
     - React-Core (= 0.63.1)
     - React-cxxreact (= 0.63.1)
     - React-jsi (= 0.63.1)
+  - RNCMaskedView (0.1.10):
+    - React
+  - RNGestureHandler (1.8.0):
+    - React
+  - RNReanimated (1.13.1):
+    - React
+  - RNScreens (2.12.0):
+    - React-Core
   - RNVectorIcons (7.1.0):
     - React
   - Yoga (1.14.0)
@@ -339,6 +349,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -349,6 +360,10 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -398,6 +413,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -418,6 +435,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -450,6 +475,7 @@ SPEC CHECKSUMS:
   React-jsi: b32a31da32e030f30bbf9a8d3a9c8325df9e793f
   React-jsiexecutor: 7ab9cdcdd18d57652fb041f8a147fe9658d4e00a
   React-jsinspector: 2e28bb487e42dda6c94dbfa0c648d1343767a0fb
+  react-native-safe-area-context: 01158a92c300895d79dee447e980672dc3fb85a6
   React-RCTActionSheet: 1702a1a85e550b5c36e2e03cb2bd3adea053de95
   React-RCTAnimation: ddda576010a878865a4eab83a78acd92176ef6a1
   React-RCTBlob: 34334384284c81577409d5205bd2b9ff594d8ab6
@@ -460,6 +486,10 @@ SPEC CHECKSUMS:
   React-RCTText: 4f95d322b7e6da72817284abf8a2cdcec18b9cd8
   React-RCTVibration: f3a9123c244f35c40d3c9f3ec3f0b9e5717bb292
   ReactCommon: 2905859f84a94a381bb0d8dd3921ccb1a0047cb8
+  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
+  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
+  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
+  RNScreens: 4b488fdf9537bbce829e2910c8cce1d17f6d9be8
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   Yoga: d5bd05a2b6b94c52323745c2c2b64557c8c66f64
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
