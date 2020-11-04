@@ -1,23 +1,26 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   View,
-  Alert,
   ScrollView,
 } from 'react-native';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
+import { Modalize } from 'react-native-modalize';
+import { Portal } from 'react-native-portalize';
 import { appStyles, theme } from '@/theme';
 import TransactionList from '@/screens/Dashboard/components/TransactionList/TransactionList';
+import BudgetForm from '@/screens/Dashboard/components/BudgetForm/BudgetForm';
 
 type OwnProps = {};
 
 export type DashboardProps = OwnProps;
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
+  const modalRef = useRef<Modalize>();
   return (
     <>
       <SafeAreaView />
@@ -29,26 +32,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         <Spacer size="large" />
         <Card>
           <View style={styles.actionCard}>
-            <PlusButton
-              onPress={() =>
-                Alert.alert(
-                  'Alert test',
-                  'Alert message',
-                  [
-                    {
-                      text: 'Cancel',
-                      onPress: () => console.log('Cancel Pressed'),
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'OK',
-                      onPress: () => console.log('OK Pressed'),
-                      style: 'destructive',
-                    },
-                  ],
-                  { cancelable: false },
-                )
-              }>
+            <PlusButton onPress={() => modalRef.current?.open()}>
               <Icon name="plus" size={26} color={theme.colors.secondary} />
             </PlusButton>
             <View style={styles.textContainer}>
@@ -64,6 +48,11 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         </Card>
         <Spacer size="xlarge" />
         <TransactionList />
+        <Portal>
+          <Modalize ref={modalRef} adjustToContentHeight>
+            <BudgetForm />
+          </Modalize>
+        </Portal>
       </ScrollView>
     </>
   );

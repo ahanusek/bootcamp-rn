@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { Host } from 'react-native-portalize';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthNavigator } from '@/routes/Auth/AuthNavigator';
 import { MainNavigator } from '@/routes/Main/MainNavigator';
@@ -25,9 +26,11 @@ const App = () => {
   }, []);
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={MyTheme}>
-        {!auth.userToken ? <AuthNavigator /> : <MainNavigator />}
-      </NavigationContainer>
+      <Host>
+        <NavigationContainer theme={MyTheme}>
+          {!auth.userToken ? <AuthNavigator /> : <MainNavigator />}
+        </NavigationContainer>
+      </Host>
     </SafeAreaProvider>
   );
 };
