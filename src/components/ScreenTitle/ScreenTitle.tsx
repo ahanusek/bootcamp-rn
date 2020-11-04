@@ -1,18 +1,28 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 import { appStyles, theme } from '@/theme';
 
 type OwnProps = {
   title: string;
+  scrollY?: Animated.Value;
 };
 
 export type ScreenTitleProps = OwnProps;
 
-const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({ title }) => {
+const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({
+  title,
+  scrollY,
+}) => {
+  const widthInterpolation = scrollY?.interpolate({
+    inputRange: [0, 700],
+    outputRange: [30, 150],
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'extend',
+  });
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.divider} />
+      <Animated.View style={[styles.divider, { width: widthInterpolation }]} />
     </View>
   );
 };
