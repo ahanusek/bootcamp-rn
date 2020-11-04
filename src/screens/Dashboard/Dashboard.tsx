@@ -1,4 +1,5 @@
-import React, { FunctionComponent, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   SafeAreaView,
   StatusBar,
@@ -14,13 +15,48 @@ import { Portal } from 'react-native-portalize';
 import { appStyles, theme } from '@/theme';
 import TransactionList from '@/screens/Dashboard/components/TransactionList/TransactionList';
 import BudgetForm from '@/screens/Dashboard/components/BudgetForm/BudgetForm';
+import { Category } from '@/screens/Dashboard/components/TransactionList/mockData';
 
 type OwnProps = {};
 
 export type DashboardProps = OwnProps;
 
+export type BudgetModel = {
+  total: string;
+  comment: string;
+  category: Category | null;
+  paid: boolean;
+};
+
+const defaultModel = {
+  total: '0',
+  comment: '',
+  category: null,
+  paid: false,
+};
+
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>();
+  const [budget, setBudgetValue] = useState<BudgetModel>(defaultModel);
+  useEffect(() => {
+    (async () => {
+      await setBudget();
+    })();
+  }, []);
+
+  const setBudget = async () => {
+    const form = await AsyncStorage.getItem('form');
+    if (form) {
+      setBudgetValue(JSON.parse(form));
+    }
+  };
+
+  const onSubmit = async (formData: object) => {
+    await AsyncStorage.setItem('form', JSON.stringify(formData));
+    await setBudget();
+    modalRef.current?.close();
+  };
+
   return (
     <>
       <SafeAreaView />
@@ -28,7 +64,10 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
       <ScrollView>
         <ScreenTitle title="Budget" />
         <Spacer />
-        <Header mainText="$ 2500" subText="September expenses" />
+        <Header
+          mainText={`$ ${budget.total || 0}`}
+          subText="September expenses"
+        />
         <Spacer size="large" />
         <Card>
           <View style={styles.actionCard}>
@@ -50,7 +89,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         <TransactionList />
         <Portal>
           <Modalize ref={modalRef} adjustToContentHeight>
-            <BudgetForm />
+            <BudgetForm onSubmit={onSubmit} model={budget} />
           </Modalize>
         </Portal>
       </ScrollView>
