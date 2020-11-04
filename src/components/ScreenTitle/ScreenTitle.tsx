@@ -1,35 +1,52 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { Dimensions, StyleSheet, Animated } from 'react-native';
 import { appStyles, theme } from '@/theme';
 
 type OwnProps = {
   title: string;
   scrollY?: Animated.Value;
+  scrollOffset?: number;
 };
+
+const { width } = Dimensions.get('screen');
 
 export type ScreenTitleProps = OwnProps;
 
 const ScreenTitle: FunctionComponent<ScreenTitleProps> = ({
   title,
   scrollY,
+  scrollOffset,
 }) => {
   const widthInterpolation = scrollY?.interpolate({
-    inputRange: [0, 700],
-    outputRange: [30, 150],
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'extend',
+    inputRange: [0, scrollOffset ? scrollOffset - 650 : 700],
+    outputRange: [30, width],
+  });
+  const heightInterpolation = scrollY?.interpolate({
+    inputRange: [0, 300],
+    outputRange: [50, 40],
+    extrapolate: 'clamp',
+  });
+
+  const fontSize = scrollY?.interpolate({
+    inputRange: [0, 300],
+    outputRange: [20, 16],
+    extrapolate: 'clamp',
   });
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Animated.View style={[styles.divider, { width: widthInterpolation }]} />
-    </View>
+    <Animated.View style={[styles.container, { height: heightInterpolation }]}>
+      <Animated.Text style={[styles.title, { fontSize }]}>
+        {title}
+      </Animated.Text>
+      <Animated.View
+        style={[styles.divider, { width: widthInterpolation || 30 }]}
+      />
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: theme.colors.lightBorder,

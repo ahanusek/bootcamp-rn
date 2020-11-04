@@ -7,6 +7,7 @@ import {
   Text,
   View,
   ScrollView,
+  Animated,
 } from 'react-native';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -37,6 +38,8 @@ const defaultModel = {
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>();
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const [listHeight, setListHeight] = useState(0);
   const [budget, setBudgetValue] = useState<BudgetModel>(defaultModel);
   useEffect(() => {
     (async () => {
@@ -61,15 +64,38 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     <>
       <SafeAreaView />
       <StatusBar />
-      <ScrollView>
-        <ScreenTitle title="Budget" />
+      <ScreenTitle
+        title="Budget"
+        scrollY={animatedValue}
+        scrollOffset={listHeight}
+      />
+      <ScrollView
+        scrollEventThrottle={16}
+        onContentSizeChange={(w, h) => {
+          if (h !== listHeight) {
+            setListHeight(h);
+          }
+        }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: animatedValue,
+                },
+              },
+            },
+          ],
+          { useNativeDriver: false },
+        )}>
         <Spacer />
         <Header
           mainText={`$ ${budget.total || 0}`}
           subText="September expenses"
+          scrollY={animatedValue}
         />
         <Spacer size="large" />
-        <Card>
+        <Card scrollY={animatedValue}>
           <View style={styles.actionCard}>
             <PlusButton onPress={() => modalRef.current?.open()}>
               <Icon name="plus" size={26} color={theme.colors.secondary} />
@@ -87,6 +113,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         </Card>
         <Spacer size="xlarge" />
         <TransactionList />
+        <Spacer size="xlarge" />
         <Portal>
           <Modalize ref={modalRef} adjustToContentHeight>
             <BudgetForm onSubmit={onSubmit} model={budget} />
