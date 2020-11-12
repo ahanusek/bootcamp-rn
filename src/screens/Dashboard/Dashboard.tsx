@@ -11,6 +11,7 @@ import {
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
 import { appStyles, theme } from '@/theme';
+import TransactionList from '@/screens/Dashboard/components/TransactionList/TransactionList';
 
 type OwnProps = {};
 
@@ -61,6 +62,8 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             </View>
           </View>
         </Card>
+        <Spacer size="xlarge" />
+        <TransactionList />
         <Spacer size="xlarge" />
       </ScrollView>
     </>
