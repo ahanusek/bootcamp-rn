@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --variant devDebug --appIdSuffix dev",
+    "android-prod": "react-native run-android --variant prodDebug --appIdSuffix prod",
     "ios": "react-native run-ios --scheme 'BudgetApp' --configuration Debug --simulator  'iPhone 12 mini'",
     "ios-prod": "react-native run-ios --scheme 'BudgetAppProd' --configuration DebugProd --simulator  'iPhone 12 mini'",
     "start": "react-native start",
