@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Alert,
+  ScrollView,
 } from 'react-native';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -20,7 +21,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     <>
       <SafeAreaView />
       <StatusBar />
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
         <ScreenTitle title="Budget" />
         <Spacer />
         <Header mainText="$ 2500" subText="September expenses" />
@@ -61,7 +62,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
           </View>
         </Card>
         <Spacer size="xlarge" />
-      </View>
+      </ScrollView>
     </>
   );
 };
