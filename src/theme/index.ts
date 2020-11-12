@@ -21,7 +21,7 @@ export const theme = {
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-    elevation: 2,
+    elevation: 10,
   },
   spacing: {
     small: 8,
@@ -43,28 +43,33 @@ export const theme = {
 } as const;
 const baseText = {
   color: palette.black,
+  fontFamily: 'Rubik-Regular',
   fontSize: 14,
   lineHeight: 18,
 };
 const title = {
   color: palette.black,
+  fontFamily: 'Rubik-Bold',
   fontSize: 28,
   lineHeight: 30,
 };
 const subtitle = {
   color: palette.black,
   fontSize: 18,
+  fontFamily: 'Rubik-SemiBold',
   lineHeight: 26,
 };
 const paragraph = {
   color: palette.black,
   fontSize: 16,
   lineHeight: 20,
+  fontFamily: 'Rubik-Regular',
 };
 const subText = {
   fontSize: 13,
   lineHeight: 18,
   color: palette.grey,
+  fontFamily: 'Rubik-Regular',
 };
 export const appStyles = {
   baseText,
