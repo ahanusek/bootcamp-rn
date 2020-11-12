@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { Card } from '@/components';
+import { useNavigation } from '@react-navigation/native';
+
 import {
   BudgetCategory,
   transactions,
@@ -12,8 +14,16 @@ type OwnProps = {};
 export type TransactionListProps = OwnProps;
 
 const TransactionList: FunctionComponent<TransactionListProps> = () => {
+  const navigation = useNavigation();
   const renderItem = ({ item }: { item: BudgetCategory }) => {
-    return <BudgetCategoryItem {...item} key={item.id} />;
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('TransactionDetails', { transaction: item })
+        }>
+        <BudgetCategoryItem {...item} key={item.id} />
+      </TouchableOpacity>
+    );
   };
   return (
     <Card type="secondary">

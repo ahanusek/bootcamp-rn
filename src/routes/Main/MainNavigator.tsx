@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainNavigatorList } from '@/routes/Main/MainRoutesTypes';
-import Dashboard from '@/screens/Dashboard/Dashboard';
 import Account from '@/screens/Account/Account';
 import Payments from '@/screens/Payments/Payments';
 import Cards from '@/screens/Cards/Cards';
+import BudgetNavigator from '@/routes/Budget/BudgetNavigator';
 
 const { Navigator, Screen } = createBottomTabNavigator<MainNavigatorList>();
 
@@ -14,7 +14,7 @@ const MainNavigator: FC = () => {
     <Navigator>
       <Screen
         name="Budget"
-        component={Dashboard}
+        component={BudgetNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Icon size={size} color={color} name="wallet" />
