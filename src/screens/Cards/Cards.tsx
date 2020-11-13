@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: '#FF0000',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
 const Cards: FunctionComponent<CardsProps> = () => {
   const animatedValue = useRef(new Animated.Value(1)).current;
   const transformAnimation = useRef(new Animated.Value(0)).current;
+  const springAnimation = useRef(new Animated.Value(1)).current;
 
   const startTransformAnimation = () => {
     Animated.timing(transformAnimation, {
@@ -56,6 +59,21 @@ const Cards: FunctionComponent<CardsProps> = () => {
     });
   };
 
+  const startSpringAnimation = () => {
+    Animated.spring(springAnimation, {
+      toValue: 2,
+      friction: 2,
+      tension: 140,
+      useNativeDriver: false,
+    }).start(() => {
+      Animated.timing(springAnimation, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+    });
+  };
+
   const animatedStyles = {
     opacity: animatedValue,
   };
@@ -76,6 +94,15 @@ const Cards: FunctionComponent<CardsProps> = () => {
     outputRange: ['rgb(255, 99, 71)', 'rgb(99, 71, 255)'],
   });
 
+  const colorInterpolation = transformAnimation.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['rgb(0, 0, 0)', 'rgb(255, 255, 255)'],
+  });
+
+  const scaleAnimationStyles = {
+    transform: [{ scale: springAnimation }],
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScreenTitle title="Cards" />
@@ -90,8 +117,16 @@ const Cards: FunctionComponent<CardsProps> = () => {
               styles.box,
               transformAnimatedStyles,
               { backgroundColor: bgInterpolation },
-            ]}
-          />
+            ]}>
+            <Animated.Text
+              style={{ textAlign: 'center', color: colorInterpolation }}>
+              Tekst
+            </Animated.Text>
+          </Animated.View>
+        </TouchableWithoutFeedback>
+        <Spacer size="large" />
+        <TouchableWithoutFeedback onPress={startSpringAnimation}>
+          <Animated.View style={[styles.box, scaleAnimationStyles]} />
         </TouchableWithoutFeedback>
       </View>
     </SafeAreaView>

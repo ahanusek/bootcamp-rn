@@ -16,13 +16,13 @@ export type TransactionListProps = OwnProps;
 
 const TransactionList: FunctionComponent<TransactionListProps> = () => {
   const navigation = useNavigation<BudgetNavProps<'MainBudget'>>();
-  const renderItem = ({ item }: { item: BudgetCategory }) => {
+  const renderItem = ({ item }: { item: BudgetCategory; index: number }) => {
     return (
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('TransactionDetails', { transaction: item })
         }>
-        <BudgetCategoryItem {...item} key={item.id} />
+        <BudgetCategoryItem {...item} />
       </TouchableOpacity>
     );
   };
@@ -31,7 +31,7 @@ const TransactionList: FunctionComponent<TransactionListProps> = () => {
       <FlatList<BudgetCategory>
         data={transactions}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, i) => `${i}`}
       />
     </Card>
   );
