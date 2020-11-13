@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from 'react';
+import React, { FunctionComponent, useRef, useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -8,23 +8,52 @@ import {
   ScrollView,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Portal } from 'react-native-portalize';
 import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
 import { appStyles, theme } from '@/theme';
 import TransactionList from '@/screens/Dashboard/components/TransactionList/TransactionList';
-import BudgetForm, {
-  BudgetModel,
-} from '@/screens/Dashboard/components/BudgetForm/BudgetForm';
+import BudgetForm from '@/screens/Dashboard/components/BudgetForm/BudgetForm';
+import { Category } from '@/screens/Dashboard/components/mockData';
 
 type OwnProps = {};
 
 export type DashboardProps = OwnProps;
 
+export type BudgetModel = {
+  total: string;
+  comment: string;
+  category: Category | null;
+  paid: boolean;
+};
+
+const defaultModel = {
+  total: '0',
+  comment: '',
+  category: null,
+  paid: false,
+};
+
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>(null);
-  const onSubmit = (data: BudgetModel) => {
-    console.warn(data);
+  const [budget, setBudgetValue] = useState<BudgetModel>(defaultModel);
+  useEffect(() => {
+    (async () => {
+      await setBudget();
+    })();
+  }, []);
+
+  const setBudget = async () => {
+    const form = await AsyncStorage.getItem('form');
+    if (form) {
+      setBudgetValue(JSON.parse(form));
+    }
+  };
+
+  const onSubmit = async (formData: object) => {
+    await AsyncStorage.setItem('form', JSON.stringify(formData));
+    await setBudget();
     modalRef.current?.close();
   };
   return (
@@ -34,7 +63,10 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
         <ScreenTitle title="Budget" />
         <Spacer />
-        <Header mainText="$ 2500" subText="September expenses" />
+        <Header
+          mainText={`$ ${budget.total || 0}`}
+          subText="September expenses"
+        />
         <Spacer size="large" />
         <Card>
           <View style={styles.actionCard}>
@@ -58,7 +90,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
       </ScrollView>
       <Portal>
         <Modalize ref={modalRef} adjustToContentHeight>
-          <BudgetForm onSubmit={onSubmit} />
+          <BudgetForm onSubmit={onSubmit} model={budget} />
         </Modalize>
       </Portal>
     </>

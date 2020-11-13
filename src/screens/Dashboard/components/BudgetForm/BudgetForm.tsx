@@ -15,34 +15,25 @@ import {
 } from 'react-native-formik';
 import RNPickerSelect from 'react-native-picker-select';
 import { Category } from '@/screens/Dashboard/components/mockData';
+import { BudgetModel } from '@/screens/Dashboard/Dashboard';
 
 type OwnProps = {
   onSubmit: (data: BudgetModel) => void;
+  model: BudgetModel;
 };
 
 export type BudgetFormProps = OwnProps;
 
-export type BudgetModel = {
-  total: string;
-  comment: string;
-  category: Category | null;
-  paid: boolean;
-};
-
-const defaultModel = {
-  total: '0',
-  comment: '',
-  category: null,
-  paid: false,
-};
-
 const Field = handleTextInput(withNextInputAutoFocusInput(TextInput));
 const Form = withNextInputAutoFocusForm(View, { submitAfterLastInput: false });
 
-const BudgetForm: FunctionComponent<BudgetFormProps> = ({ onSubmit }) => {
+const BudgetForm: FunctionComponent<BudgetFormProps> = ({
+  onSubmit,
+  model,
+}) => {
   return (
     <View style={{ padding: 30 }}>
-      <Formik<BudgetModel> onSubmit={onSubmit} initialValues={defaultModel}>
+      <Formik<BudgetModel> onSubmit={onSubmit} initialValues={model}>
         {({ values, handleSubmit, setFieldValue, touched, errors }) => (
           <Form>
             <Text style={styles.label}>Total</Text>
