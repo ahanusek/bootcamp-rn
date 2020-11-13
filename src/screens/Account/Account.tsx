@@ -10,7 +10,7 @@ const Account: FunctionComponent<AccountProps> = () => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScreenTitle title="Account" animatedValue={animatedValue} />
+      <ScreenTitle title="Account" scrollY={animatedValue} />
       <ScrollView
         bounces={false}
         scrollEventThrottle={16}

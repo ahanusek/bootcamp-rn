@@ -1,22 +1,33 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import { theme } from '@/theme';
 
 type OwnProps = {
   type?: 'primary' | 'secondary';
+  scrollY?: Animated.Value;
 };
 
 export type CardProps = OwnProps;
 
-const Card: FunctionComponent<CardProps> = ({ children, type = 'primary' }) => {
+const Card: FunctionComponent<CardProps> = ({
+  children,
+  type = 'primary',
+  scrollY,
+}) => {
+  const cardInterpolation = scrollY?.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -100],
+    extrapolate: 'clamp',
+  });
   return (
-    <View
+    <Animated.View
       style={[
         styles.container,
         { backgroundColor: mapTypeToBackgroundColor[type] },
+        { transform: [{ translateY: cardInterpolation || 0 }] },
       ]}>
       {children}
-    </View>
+    </Animated.View>
   );
 };
 

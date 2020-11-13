@@ -6,6 +6,7 @@ import {
   Text,
   View,
   ScrollView,
+  Animated,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -38,6 +39,8 @@ const defaultModel = {
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>(null);
   const [budget, setBudgetValue] = useState<BudgetModel>(defaultModel);
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const [listHeight, setListHeight] = useState(0);
   useEffect(() => {
     (async () => {
       await setBudget();
@@ -60,15 +63,38 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     <>
       <SafeAreaView />
       <StatusBar />
-      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <ScreenTitle title="Budget" />
+      <ScreenTitle
+        title="Budget"
+        scrollY={animatedValue}
+        scrollOffset={listHeight}
+      />
+      <ScrollView
+        scrollEventThrottle={16}
+        onContentSizeChange={(w, h) => {
+          if (h !== listHeight) {
+            setListHeight(h);
+          }
+        }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: animatedValue,
+                },
+              },
+            },
+          ],
+          { useNativeDriver: false },
+        )}>
         <Spacer />
         <Header
           mainText={`$ ${budget.total || 0}`}
           subText="September expenses"
+          scrollY={animatedValue}
         />
         <Spacer size="large" />
-        <Card>
+        <Card scrollY={animatedValue}>
           <View style={styles.actionCard}>
             <PlusButton onPress={() => modalRef.current?.open()}>
               <Icon name="plus" size={26} color={theme.colors.secondary} />
