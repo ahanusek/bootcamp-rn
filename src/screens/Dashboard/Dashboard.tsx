@@ -13,7 +13,9 @@ import { ScreenTitle, Header, Spacer, Card, PlusButton } from '@/components';
 import Icon from 'react-native-vector-icons/Entypo';
 import { appStyles, theme } from '@/theme';
 import TransactionList from '@/screens/Dashboard/components/TransactionList/TransactionList';
-import BudgetForm from '@/screens/Dashboard/components/BudgetForm/BudgetForm';
+import BudgetForm, {
+  BudgetModel,
+} from '@/screens/Dashboard/components/BudgetForm/BudgetForm';
 
 type OwnProps = {};
 
@@ -21,6 +23,10 @@ export type DashboardProps = OwnProps;
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
   const modalRef = useRef<Modalize>(null);
+  const onSubmit = (data: BudgetModel) => {
+    console.warn(data);
+    modalRef.current?.close();
+  };
   return (
     <>
       <SafeAreaView />
@@ -52,7 +58,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
       </ScrollView>
       <Portal>
         <Modalize ref={modalRef} adjustToContentHeight>
-          <BudgetForm />
+          <BudgetForm onSubmit={onSubmit} />
         </Modalize>
       </Portal>
     </>
