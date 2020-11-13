@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { Host } from 'react-native-portalize';
 import AuthNavigator from '@/routes/Auth/AuthNavigator';
 import MainNavigator from '@/routes/Main/MainNavigator';
 import { palette } from '@/theme';
@@ -25,9 +26,11 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer theme={MyTheme}>
-      {auth.token ? <MainNavigator /> : <AuthNavigator />}
-    </NavigationContainer>
+    <Host>
+      <NavigationContainer theme={MyTheme}>
+        {auth.token ? <MainNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </Host>
   );
 };
 

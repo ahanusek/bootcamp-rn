@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text } from 'react-native';
 import { appStyles } from '@/theme';
-import { BudgetNavProps } from '@/routes/Budget/BudgetRoutesTypes';
+import { BudgetNestedNav } from '@/routes/Budget/BudgetRoutesTypes';
 
 type OwnProps = {};
 
 export type TransactionDetailsProps = OwnProps &
-  BudgetNavProps<'TransactionDetails'>;
+  BudgetNestedNav<'TransactionDetails'>;
 
 const TransactionDetails: FunctionComponent<TransactionDetailsProps> = ({
   route,

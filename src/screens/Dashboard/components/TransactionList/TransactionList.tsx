@@ -8,13 +8,14 @@ import {
   transactions,
 } from '@/screens/Dashboard/components/mockData';
 import BudgetCategoryItem from '@/screens/Dashboard/components/BudgetCategoryItem/BudgetCategoryItem';
+import { BudgetNavProps } from '@/routes/Budget/BudgetRoutesTypes';
 
 type OwnProps = {};
 
 export type TransactionListProps = OwnProps;
 
 const TransactionList: FunctionComponent<TransactionListProps> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<BudgetNavProps<'MainBudget'>>();
   const renderItem = ({ item }: { item: BudgetCategory }) => {
     return (
       <TouchableOpacity
